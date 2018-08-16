@@ -5,7 +5,7 @@ import time
 from etl_manager.etl import GlueJob
 
 
-def wait_until_succeeded(job):
+def wait_completion(job):
     class JobFailedError(Exception):
         pass
 
@@ -17,7 +17,7 @@ def wait_until_succeeded(job):
         status_code = status["JobRun"]["JobRunState"]
         status_error = status["JobRun"]["ErrorMessage"]
 
-        if status_code == "SUCCEEDED":
+        if status_code in ("SUCCEEDED", "STOPPED"):
             break
 
         if status_code == "FAILED":
@@ -61,7 +61,7 @@ def main():
     job.run_job()
 
     # Wait until job succeed (or there was an error)
-    wait_until_succeeded(job)
+    wait_completion(job)
 
 
 if __name__ == "__main__":
