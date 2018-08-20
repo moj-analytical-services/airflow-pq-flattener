@@ -13,7 +13,7 @@ def wait_completion(job):
         pass
 
     while True:
-        status = job.job_status()
+        status = job.job_status
         status_code = status["JobRun"]["JobRunState"]
         status_error = status["JobRun"]["ErrorMessage"]
 
