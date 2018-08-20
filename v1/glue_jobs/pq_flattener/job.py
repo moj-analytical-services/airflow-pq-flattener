@@ -6,7 +6,9 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 
 
-args = getResolvedOptions(sys.argv, ["JOB_NAME", "s3_bucket", "source_path", "dest_path"])
+args = getResolvedOptions(
+    sys.argv, ["JOB_NAME", "s3_bucket", "source_path", "dest_path"]
+)
 
 print("args = ", args)
 
@@ -20,7 +22,9 @@ job.init(args["JOB_NAME"], args)
 # df = spark.read.json(args["source_path"])
 
 s3_path = "s3://" + args["s3_bucket"] + "/" + args["source_path"]
-df = glueContext.create_dynamic_frame_from_options("s3", {"paths": [s3_path], format="json"})
+df = glueContext.create_dynamic_frame_from_options(
+    "s3", {"paths": [s3_path]}, format="json"
+)
 
 columns = [
     df.tablingMemberPrinted[0]._value.alias("questionMP"),
