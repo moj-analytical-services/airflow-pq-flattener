@@ -6,7 +6,7 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 
 
-args = getResolvedOptions(sys.argv, ["JOB_NAME", "source-path", "dest-path"])
+args = getResolvedOptions(sys.argv, ["JOB_NAME", "source_path", "dest_path"])
 
 print("args = ", args)
 
@@ -17,7 +17,7 @@ job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
 # Body of the job
-df = spark.read.json(args["source-path"])
+df = spark.read.json(args["source_path"])
 
 columns = [
     df.tablingMemberPrinted[0]._value.alias("questionMP"),
@@ -31,6 +31,6 @@ columns = [
     df.AnsweringBody[0]._value.alias("answeringBody"),
 ]
 
-df.select(columns).coalesce(1).write.csv(args["dest-path"], header=True)
+df.select(columns).coalesce(1).write.csv(args["dest_path"], header=True)
 
 job.commit()

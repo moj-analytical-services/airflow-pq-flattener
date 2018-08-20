@@ -43,8 +43,8 @@ def main():
 
     job_arguments = {
         "--date": date,
-        "--source-path": source_path,
-        "--dest-path": dest_path,
+        "--source_path": source_path,
+        "--dest_path": dest_path,
     }
 
     job = GlueJob(
