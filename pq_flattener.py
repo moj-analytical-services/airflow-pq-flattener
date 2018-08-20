@@ -43,9 +43,8 @@ def main():
 
     job_arguments = {
         "--date": date,
-        "--s3_bucket": bucket,
-        "--source_path": source_path,
-        "--dest_path": dest_path,
+        "--s3_source": f"s3://{bucket}/{source_path}",
+        "--s3_dest": f"s3://{bucket}/{dest_path}",
     }
 
     job = GlueJob(

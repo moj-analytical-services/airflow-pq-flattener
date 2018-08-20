@@ -6,9 +6,7 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 
 
-args = getResolvedOptions(
-    sys.argv, ["JOB_NAME", "s3_bucket", "source_path", "dest_path"]
-)
+args = getResolvedOptions(sys.argv, ["JOB_NAME", "s3_source", "s3_dest"])
 
 print("args = ", args)
 
@@ -19,8 +17,7 @@ job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
 # Body of the job
-s3_path = "s3://" + args["s3_bucket"] + "/" + args["source_path"]
-df = spark.read.json(s3_path)
+df = spark.read.json(args["s3_source"])
 
 df.printSchema()
 
@@ -36,6 +33,6 @@ columns = [
     df.AnsweringBody[0]._value.alias("answeringBody"),
 ]
 
-df.select(columns).coalesce(1).write.csv(args["dest_path"], header=True)
+df.select(columns).coalesce(1).write.csv(args["s3_dest"], header=True, mode="overwrite")
 
 job.commit()
