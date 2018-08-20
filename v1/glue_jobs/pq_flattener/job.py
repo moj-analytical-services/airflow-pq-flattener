@@ -6,10 +6,7 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 
 
-args = getResolvedOptions(sys.argv, ["JOB_NAME", "aws_build", "metadata_base_path"])
-
-print("RUNNING ETL PROCESS AS... ", args["aws_build"])
-print("METADATA BASE FOLDER IS ", args["metadata_base_path"])
+args = getResolvedOptions(sys.argv, ["JOB_NAME", "source-path", "dest-path"])
 
 sc = SparkContext()
 glueContext = GlueContext(sc)
