@@ -1,0 +1,83 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+            "Sid": "ListGlueJobFiles",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::dev-aldo-test-20170927-1505"
+        },
+        {
+            "Sid": "UploadReadGlueJobsFiles",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::dev-aldo-test-20170927-1505/_GlueJobs_/*"
+        },
+        {
+            "Sid": "CreateAndStartGlueJob",
+            "Effect": "Allow",
+            "Action": [
+                "glue:CreateJob",
+                "glue:StartJobRun",
+                "glue:GetJobBookmark"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "PassRoleToGlueService",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::593291632749:role/dev_pq_flattener",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": [
+                        "glue.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "PutMetricData",
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:PutMetricData"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:/aws-glue/*"
+            ]
+        },
+        {
+            "Sid": "CanReadPQsJSONfiles",
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::dev-aldo-test-20170927-1505/pq_raw/*.json"
+        },
+        {
+            "Sid": "HeadBucket",
+            "Effect": "Allow",
+            "Action": "s3:HeadBucket",
+            "Resource": "*"
+        },
+        {
+            "Sid": "CanWritePQsCSVFile",
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::dev-aldo-test-20170927-1505/pq_flat/*"
+        }
+    ]
+}
