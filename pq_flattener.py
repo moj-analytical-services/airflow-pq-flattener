@@ -43,6 +43,7 @@ def main():
 
     job_arguments = {
         "--date": date,
+        "--s3_bucket": bucket,
         "--source_path": source_path,
         "--dest_path": dest_path,
     }
