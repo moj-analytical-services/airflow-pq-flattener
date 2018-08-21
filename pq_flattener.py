@@ -5,29 +5,6 @@ import time
 from etl_manager.etl import GlueJob
 
 
-def wait_completion(job):
-    class JobFailedError(Exception):
-        pass
-
-    class JobTimedOutError(Exception):
-        pass
-
-    while True:
-        status = job.job_status
-        status_code = status["JobRun"]["JobRunState"]
-        status_error = status["JobRun"]["ErrorMessage"]
-
-        if status_code in ("SUCCEEDED", "STOPPED"):
-            break
-
-        if status_code == "FAILED":
-            raise JobFailedError(status_error)
-        if status_code == "TIMEOUT":
-            raise JobTimedOutError(status_error)
-
-        time.sleep(10)
-
-
 def main():
     if len(sys.argv) == 1:
         print(f"Usage: {sys.argv[0]} YYYY-mm-dd")
@@ -54,14 +31,16 @@ def main():
         job_arguments=job_arguments,
     )
 
-    job.job_name = f"pq_flattener_{date}"
+    job.job_name = f"pq_flattener"
 
     # Run job on AWS Glue
     print(f'Starting job "{job.job_name}"...')
-    job.run_job()
 
-    # Wait until job succeed (or there was an error)
-    wait_completion(job)
+    try:
+        job.run_job()
+        job.wait_for_completion()
+    finally:
+        job.cleanup()
 
 
 if __name__ == "__main__":

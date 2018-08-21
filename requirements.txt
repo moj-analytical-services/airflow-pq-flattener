@@ -1,2 +1,2 @@
--e git+git://github.com/moj-analytical-services/etl_manager.git@777d4f33f85bb5372fe5930a7084fec22e416dc3#egg=etl_manager
+-e git+git://github.com/moj-analytical-services/etl_manager.git@efbb6e015f2fb247582daac90edb985a6e8af057#egg=etl_manager
 boto3==1.7.62
