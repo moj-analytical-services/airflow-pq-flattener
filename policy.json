@@ -13,7 +13,8 @@
             "Effect": "Allow",
             "Action": [
                 "s3:GetObject",
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:DeleteObject"
             ],
             "Resource": "arn:aws:s3:::dev-aldo-test-20170927-1505/_GlueJobs_/*"
         },
@@ -23,7 +24,9 @@
             "Action": [
                 "glue:CreateJob",
                 "glue:StartJobRun",
-                "glue:GetJobBookmark"
+                "glue:GetJobRun",
+                "glue:GetJobBookmark",
+                "glue:DeleteJob"
             ],
             "Resource": "*"
         },
