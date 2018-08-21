@@ -79,7 +79,10 @@
         {
             "Sid": "CanWritePQsCSVFile",
             "Effect": "Allow",
-            "Action": "s3:PutObject",
+            "Action": [
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
             "Resource": "arn:aws:s3:::dev-aldo-test-20170927-1505/pq_flat/*"
         }
     ]
