@@ -6,7 +6,10 @@
             "Action": [
                 "s3:ListBucket"
             ],
-            "Resource": "arn:aws:s3:::dev-cds-curated-open-data"
+            "Resource": [
+                "arn:aws:s3:::dev-cds-raw",
+                "arn:aws:s3:::dev-cds-curated-open-data"
+            ]
         },
         {
             "Sid": "UploadReadGlueJobsFiles",
