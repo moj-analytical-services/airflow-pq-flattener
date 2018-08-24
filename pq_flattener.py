@@ -12,23 +12,21 @@ def main():
 
     date = sys.argv[1]
 
-    bucket = os.environ["PQ_FLATTENER_S3_BUCKET"]
+    job_bucket = os.environ["PQ_FLATTENER_GLUE_JOB_BUCKET"]
     iam_role = os.environ["PQ_FLATTENER_JOB_IAM_ROLE"]
 
     source_path = os.environ["PQ_FLATTENER_SOURCE_PATH"]
     dest_path = os.environ["PQ_FLATTENER_DEST_PATH"]
 
-    job_arguments = {
-        "--date": date,
-        "--s3_source": f"s3://{bucket}/{source_path}",
-        "--s3_dest": f"s3://{bucket}/{dest_path}",
-    }
-
     job = GlueJob(
         "v1/glue_jobs/pq_flattener",
-        bucket=bucket,
+        bucket=job_bucket,
         job_role=iam_role,
-        job_arguments=job_arguments,
+        job_arguments={
+            "--date": date,
+            "--s3_source": source_path,
+            "--s3_dest": dest_path,
+        },
     )
 
     job.job_name = f"pq_flattener"

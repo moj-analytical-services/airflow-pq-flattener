@@ -17,10 +17,9 @@ The job will load the JSON files and write out theselect the following co
 
 ### Environment variables
 
-- `PQ_FLATTENER_S3_BUCKET`, S3 bucket where:
-    1. S3 bucket where the Glue job is uploaded
-    2. Where the RAW data is read from
-    2. Where the flat CSV is written to
-- `PQ_FLATTENER_SOURCE_PATH`, path where the source, raw, JSON files are
-- `PQ_FLATTENER_DEST_PATH`, path where to write the combined flat CSV
+- `PQ_FLATTENER_GLUE_JOB_BUCKET`, S3 bucket where the Glue job is
+  uploaded
+- `PQ_FLATTENER_SOURCE_PATH`, S3 URL pointing to the RAW JSON files
+- `PQ_FLATTENER_DEST_PATH`, S3 URL pointing to where to write the
+  combined, flat, CSV output
 - `PQ_FLATTENER_JOB_IAM_ROLE`, IAM role assumed by the Glue job when running
