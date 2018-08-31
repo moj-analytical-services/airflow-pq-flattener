@@ -1,14 +1,14 @@
 {
     "Version": "2012-10-17",
     "Statement": [{
-            "Sid": "ListGlueJobFiles",
+            "Sid": "ListObjects",
             "Effect": "Allow",
             "Action": [
                 "s3:ListBucket"
             ],
             "Resource": [
-                "arn:aws:s3:::alpha-cds-raw",
-                "arn:aws:s3:::alpha-cds-curated-open-data"
+                "arn:aws:s3:::mojap-raw",
+                "arn:aws:s3:::alpha-mojap-curated-open-data"
             ]
         },
         {
@@ -19,7 +19,7 @@
                 "s3:PutObject",
                 "s3:DeleteObject"
             ],
-            "Resource": "arn:aws:s3:::alpha-cds-curated-open-data/_GlueJobs_/*"
+            "Resource": "arn:aws:s3:::alpha-mojap-curated-open-data/_GlueJobs_/*"
         },
         {
             "Sid": "CreateAndStartGlueJob",
@@ -39,7 +39,7 @@
             "Action": [
                 "iam:PassRole"
             ],
-            "Resource": "arn:aws:iam::593291632749:role/alpha_pq_flattener",
+            "Resource": "arn:aws:iam::593291632749:role/airflow_pq_flattener",
             "Condition": {
                 "StringLike": {
                     "iam:PassedToService": [
@@ -71,7 +71,7 @@
             "Sid": "CanReadPQsJSONfiles",
             "Effect": "Allow",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::alpha-cds-raw/open_data/parliamentary_questions/*.json"
+            "Resource": "arn:aws:s3:::mojap-raw/open_data/parliamentary_questions/*.json"
         },
         {
             "Sid": "HeadBucket",
@@ -87,8 +87,8 @@
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws:s3:::alpha-cds-curated-open-data/parliamentary_questions/*",
-                "arn:aws:s3:::alpha-cds-curated-open-data/parliamentary_questions_$folder$"
+                "arn:aws:s3:::alpha-mojap-curated-open-data/parliamentary_questions/*",
+                "arn:aws:s3:::alpha-mojap-curated-open-data/parliamentary_questions_$folder$"
             ]
         }
     ]
